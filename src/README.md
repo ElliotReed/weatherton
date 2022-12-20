@@ -1,0 +1,13 @@
+# Weather
+
+[https://elliotreed.github.io/weather/](https://elliotreed.github.io/weather/)
+
+A simple weather app using HTML, CSS and JavaScript
+
+Author: Elliot Reed
+
+Weather data from OpenWeather:
+
+[Current Weather](https://openweathermap.org/current)
+
+[5 Day Forecast](https://openweathermap.org/forecast5)
