@@ -65,7 +65,7 @@ export function createAlert(alerts = []) {
   );
 
   const container = createElement("div", { class: "alert" }, notice);
-  const alertContainer = createElement("div", { class: "alert__container" });
+  const alertContainer = createElement("div", { class: "alert__container scrollbar" });
 
   alerts.forEach((alert) => {
     console.log(alert);
@@ -241,7 +241,7 @@ export function createPressureElement(pressure, size = 50) {
 export function createProbabilityOfPrecipitaionElement(pop) {
   const raindropIcon = createElement("img", {
     class: "raindroplet",
-    src: "images/raindrop.svg",
+    src: "/src/images/raindrop.svg",
     width: "16",
     height: "16",
   });

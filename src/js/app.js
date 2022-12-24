@@ -141,7 +141,7 @@ function buildCurrentWeatherFeature(weatherData) {
   const uviElement = Elements.createUviElement(uvi);
 
   // TODO get city name
-  body.setAttribute("class", dayOrNight);
+  body.classList.add(dayOrNight);
   currentWeatherContainer.innerHTML = "";
   currentWeatherContainer.append(
     dateTimeElement,

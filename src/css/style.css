@@ -41,6 +41,8 @@
   --goldenRatio: 1.618;
   --factor__small: 0.38rem;
   --margin: 1rem;
+  --margin-sm: .76em;
+  --margin-md: 1rem;
   --marginBox: 0.38rem 0.618rem;
   --padding: 1rem;
   --paddingBox: 0.49rem 1rem;
@@ -97,22 +99,23 @@ body {
   overflow-x: hidden;
 }
 
-body::-webkit-scrollbar {
-  width: 1rem;
+.scrollbar::-webkit-scrollbar {
+  width: .76rem;
+  height: .76rem;
   /* Mostly for vertical scrollbars */
 }
 
-body::-webkit-scrollbar-thumb {
+.scrollbar::-webkit-scrollbar-thumb {
   border-radius: var(--borderRadius);
   background: var(--scrollbarForegroundVerticle);
 }
 
-body::-webkit-scrollbar-thumb:hover {
+.scrollbar::-webkit-scrollbar-thumb:hover {
   border: 1px solid var(--scrollbarBackground);
   background: var(--scrollbarHover);
 }
 
-body::-webkit-scrollbar-track {
+.scrollbar::-webkit-scrollbar-track {
   box-shadow: inset 1px 1px 8px #2222223f, inset -1px -1px 8px #2222223f;
   background: var(--scrollbarBackground);
 }
@@ -308,14 +311,15 @@ section {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  padding: var(--padding);
-  line-height: 1;
+  padding-inline: var(--padding);
+  line-height: 1.49;
   color: var(--light);
 }
 
 #site__header .title {
   font-weight: 700;
   font-size: calc(100% * var(--goldenRatio));
+  line-height: inherit;
   margin: 0;
 }
 
@@ -346,27 +350,6 @@ section {
 } */
 #today-weather__container.forecast-container {
   overflow: hidden;
-}
-
-.forecast-container::-webkit-scrollbar {
-  height: 1rem;
-  /* Mostly for vertical scrollbars */
-}
-
-.forecast-container::-webkit-scrollbar-thumb {
-  /* border: 1px solid var(--scrollbarBackground); */
-  border-radius: var(--borderRadius);
-  background: var(--scrollbarForegroundHorizontal);
-}
-
-.forecast-container::-webkit-scrollbar-thumb:hover {
-  border: 1px solid var(--scrollbarBackground);
-  background: var(--scrollbarHover);
-}
-
-.forecast-container::-webkit-scrollbar-track {
-  box-shadow: inset 1px 1px 8px #2222223f, inset -1px -1px 8px #2222223f;
-  background: var(--scrollbarBackground);
 }
 
 .display-btn {
@@ -629,16 +612,16 @@ section {
 
 .alert__container {
   position: absolute;
-  z-index: 1;
-  margin-top: var(--margin);
-  left: 0;
-  right: 0;
-  border-radius: var(--borderRadius);
+  left: 1rem;
+  right: 1rem;
   max-height: 0;
   color: var(--dark);
+  margin-top: var(--margin-sm);
+  border-radius: var(--borderRadius);
   background: var(--light);
   overflow: hidden;
   transition: all 0.26s ease-out;
+  z-index: 1;
 }
 
 .alert__container.display {
