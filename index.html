@@ -5,14 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIldlYXRoZXJ0b24sIHlvdXIgcGVyc29uYWwgd2VhdGhlciBidXRsZXIiLAogICJzaG9ydF9uYW1lIjogIldlYXRoZXJ0b24iLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJhbmRyb2lkLWNocm9tZS0xOTJ4MTkyLnBuZyIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJhbmRyb2lkLWNocm9tZS01MTJ4NTEyLnBuZyIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0sCiAgInRoZW1lX2NvbG9yIjogIiM2ZWEwZDIiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiM2ZWEwZDIiLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJzdGFydF91cmwiOiAiaW5kZXguaHRtbCIKfQo=">
-  <link rel="shortcut icon" href="/weatherton/assets/favicon-276fc228.ico" type="image/x-icon">
+  <link rel="icon" href="/weatherton/assets/favicon-276fc228.ico" sizes="any"><!-- 32×32 -->
+  <!-- <link rel="icon" href="/icon.svg" type="image/svg+xml"> -->
+  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAACN1BMVEVuoNJwodOQtty1z+jB1uyzzeiNtNyxzOf1+fz////z9/uryOVvodKRt931+Pzy9vu40OmyzefF2e3G2e3C1+xzo9N7qNZ3ptVvoNK+1Ou60umbveDU4/Lo8Pjg6/W2z+h8qdadv+H7/P76/P6aveCnxeT2+fz+///T4vF+q9d1pdTL3e/+/v/I2+51pNSCrdjq8fh5p9ayzOfb6PTl7vfa5/Svy+Z5p9Wev+H9/v50pNSiwuKKs9t4ptXH2u54p9Vzo9R9qtd6qNaErtmXu9++1evO3/Di7Pbn7/jr8vnh7PbZ5vOWut6DrtlxotOBrdifwOHA1uzd6fTw9frc6PS/1euArNjE2O2jw+Lt8/r8/f7s8/nM3e+hweLx9vuFr9mMtNvp8Pi70+r6/P2TuN3K3O/0+Pvy9/uPttyIsdr0+PyJstrM3u+30Onv9fq0zujD2OyEr9mYu9/f6vWVud6pxuR7qda40emGsNnQ4PHm7/fj7fadv+CnxuSjw+Okw+OgweKWut9+qtfY5vPA1uumxeP5+/2hwuKGsNrK3O7E2e33+v2YvN/Y5fOoxuTh6/alxOOVut7p8fiZvN/j7PZyo9PX5fLS4fHv9PqBrNiUud6St934+/2Ls9uMs9uOtdyKstuSuN3b5/S91OubvuCuyuatyeXd6fWewOHu9Prt8/mArNd/q9eqx+X4+v3X5fPn7/e80+p2pdS60urk7fe70uqwy+asyeXJ3O7G2u3P3/DP4PDS4vHPfWu/AAAAAWJLR0QJ8dml7AAAAAd0SU1FB+MLDRIZDrqk2UEAAAaKSURBVHja7ZxpQxNHGICJIjAQjmKTLJdGAkQgICpXuOORgmgqBcWgoDWiRtRqFbXWCxEvitUCSiP2UPEoVou1d39cQw6ys+wmO7szu9t2nm8kO+88bGbenSuJi6NQKBQKhUKhUCgUCoVCofzn0S1ZGr8sQae2BppzYhIAIDlFr7YICqlpYJ70BLVFUMgAQd5TWwSFzJB0vNoiKCwPSb+vtgiV1iJUmkpTaQ1Apak0ldYAVPr/JG0wmhikAlkh6WykUozJaMClrMvJzVux0oxSZFV+wNlSgFLIvHJFXm4Ophl8YZG/fuvqYoQiJaVWfxlbWTlCmeLV82WKCrE4r6kIftS5KNZr162vrKquQXHODVZTsQaHdK0dSLBm6mrqUGoJOwN7LQ7peiuQYo3GgjOw1uOI15AMiFtHnEFyA46AuiwbaWuWsy0LT/pobCJszXZuasQUlLA1Eee4uGaS1pBzM8bAiNa6FpPR7DBvMBlir/UScxbfQpjyjZtSNjurPmitaKto3dLuzErZuq0uysCFUNvgsXbwX+P6cHvHR535ACa/s2vHqp0COcFB0hluId0unntcvMvptgN+enbv6XXw3G9XN7G2sci6b++i2vdlfSxkHPLO29+w6H/d20fWmW3tOcBRTu0/CGJzqOwwR/uAh7Azq10ne9kv6xvKikQoz3Nk+QDUSLzJ5Noz1/ooe4JhPtYpUnme458YWWUNR4k7+1vICYu/ivaTkVd0n56yITj7S3edZmWSk+3+0pYTpNpGkLqcjszBM5G/a84mISkH2shSUyTAmcHMjhykkbdszuXakZ394/zPNipqCXP6vATleT5PVUtZ34vSA2HcF9DWJHChu5gm2dmfNS+psW+uGxSbnPk5cln5e81clucMwMEriksXpMt0BqBzSGHnhDbZzgDkDSjqfLULgzMAw2YFnQ2Z8oUDXHPJlxHLiEe+b4DrNxRzvlmByRmAVqUe6IZb2JwBuK1QA7lwHaP06BeKONfgyRxhxkzylWJzx45VumeXAs7GL7E6A9BFdtoS4C7eG+2/1b3EnUvaMTsDkEt8tnUPZ+oIUkR6GsOcwO4MwGbC0sVfEZCuNJOVru0hIJ0/Tla6W76i4u2jZoKI9CmiT8UEuRNDfg4SncIUEnEGNiy7tELEk5EG+wk6T94nJP2A4Kja2EpIeoLg+nRkiwQzU1/L0TLt83F4uCayBr5kmpB00aOIQs0333L4bm3UFbTvH49aPBAWjztjIYuOk3gezmPxhavQF5wqmuaQNDESpc2ntvFFtD0JF+lF26kQj/1pWOEK7zbZ6B1h6WH+kGmHQ++PEHIGtvBE4KTA6kSrsHS+QMyZ0PuDpKQXzgClCFxgF5a2CBR5pph0tcAFPcLSz/lL9DUoJi00MdoiLD1+nK/A9IxeMem6Ut73018ISzO+BxVuDrvHahfyzY2XbjL8sJA9zNnn+7i8vD8e9TTWpGOWQzFrrlw+S4hXkUr0G7Zt5LBT2c1RCoVCoVAoFIo2YPTIINaAXkGMc0MtBd1OVPp9KIeRGF8/cg1lP5qjRGzskHImovOy+G95uO5KORZnHY5yWCFb2grS65Viv1hWckziwlqZcEyp64s9TWZRzo4yqetq6cJBJa96Wd/cFOHsbbdKrSBfOOpuqTEBqPTFUma2/iQ9vFs47oyMPeRY3dFVKGNx2z4nHLgl8ZD0wK+XRuuOb8/KuCGeJmOU0LpH1T+LJ3sO+sB7lq8VDHy11M6+9N3+bIR6lg1hXfjwPmarWJ1mgesGqqA792YvSiXYKXZCd3D1LN9FzFAe1EBvOVCrwUzjDmh9mO/RxemCnl/equwcF2f4Fdp6fu7lXsDpgmm/Taqt7EdXDw0nJvbBbzv6oQbkrtXIL7v5oCTSCp3u8cJnnt6p9g2GRXjXs8XaIoe5mSF4j3fsnNqqLF452cOWqaehEbZrBOqC9lK10wZM4w72zlh6faDhlmRAA1HPnCInNBFoSWQnkbSL/oGI43eoC6Y900LagIGTyOiMi9MF3S80kjZgTrM73fQflVpNGzADwoeUh8VMEtTh1Z/8cx+tpQ2Y5mt82+vaSxswcBIJkjSjvbQBo9vFXdh4uV2TaQPmHvzkfvdQbSFRQEmkXbtpA2b2r3ASse+5qraMaJo7Qj8e9UTbaQOmZd1oIG1g+9UtRdBd6gRT2/9dP5rtZ9PfMRfKtAdTp86XrCkUCoVCoVAoFAqFQqFQgvwDnOOk5NyODlsAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTktMTEtMTNUMTg6MjU6MTQrMDE6MDAx6drWAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE5LTExLTEzVDE4OjI1OjE0KzAxOjAwQLRiagAAAFd6VFh0UmF3IHByb2ZpbGUgdHlwZSBpcHRjAAB4nOPyDAhxVigoyk/LzEnlUgADIwsuYwsTIxNLkxQDEyBEgDTDZAMjs1Qgy9jUyMTMxBzEB8uASKBKLgDqFxF08kI1lQAAAABJRU5ErkJggg=="><!-- 180×180 -->
+  <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIldlYXRoZXJ0b24sIHlvdXIgcGVyc29uYWwgd2VhdGhlciBidXRsZXIiLAogICJzaG9ydF9uYW1lIjogIldlYXRoZXJ0b24iLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICIvaWNvbi0xOTIucG5nIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIiwKICAgICAgInNpemVzIjogIjE5MngxOTIiCiAgICB9LAogICAgewogICAgICAic3JjIjogIi9pY29uLTUxMi5wbmciLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIKICAgIH0KICBdLAogICJ0aGVtZV9jb2xvciI6ICIjNmVhMGQyIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjNmVhMGQyIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAic3RhcnRfdXJsIjogIi8iCn0=">
   <title>Weatherton, your personal weather butler!</title>
-  <script type="module" crossorigin src="/weatherton/assets/index-c1c19a2e.js"></script>
-  <link rel="stylesheet" href="/weatherton/assets/index-5db3aa9a.css">
+  <script type="module" crossorigin src="/weatherton/assets/index-d0713665.js"></script>
+  <link rel="stylesheet" href="/weatherton/assets/index-953caef5.css">
 </head>
 
-<body id="body">
+<body class="scrollbar" id="body">
   <header id="site__header">
     <p class="title">Weatherton &nbsp;</p>
     <p class="subtitle">Your personal weather butler!</p>
@@ -45,21 +47,21 @@
         <header>
           <h2 class="feature-heading">Today's Forecast</h1>
         </header>
-        <div id="today-weather__container" class="forecast-container"></div>
+        <div id="today-weather__container" class="forecast-container scrollbar"></div>
       </section>
 
       <section id="weather-feature__hourly" class="display-feature">
         <header>
           <h2 class="feature-heading">Hourly Forecast</h1>
         </header>
-        <div id="hourly-weather__container" class="forecast-container"></div>
+        <div id="hourly-weather__container" class="forecast-container scrollbar"></div>
       </section>
 
       <section id="weather-feature__daily" class="display-feature">
         <header>
           <h2 class="feature-heading">Daily Forecast</h1>
         </header>
-        <div id="daily-weather__container" class="forecast-container"></div>
+        <div id="daily-weather__container" class="forecast-container scrollbar"></div>
       </section>
     </div>
 
