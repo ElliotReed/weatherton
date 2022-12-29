@@ -241,7 +241,7 @@ export function createPressureElement(pressure, size = 50) {
 export function createProbabilityOfPrecipitaionElement(pop) {
   const raindropIcon = createElement("img", {
     class: "raindroplet",
-    src: "/src/images/raindrop.svg",
+    src: "/images/raindrop.svg",
     width: "16",
     height: "16",
   });
