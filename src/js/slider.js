@@ -1,7 +1,12 @@
+/*
+adds slider dragging in non-mobile browsers
+*/
+
 const sliders = document.querySelectorAll('.forecast-container');
 let isDown = false;
 let startX;
 let scrollLeft;
+
 for (const slider of sliders) {
 
   slider.addEventListener('mousedown', (e) => {
