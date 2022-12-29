@@ -1,6 +1,7 @@
 import * as Elements from "./elements.js";
-import * as utils from "./utils.js";
 import { createElement } from "./createElement.js";
+import { getDayBackgroundOpacity } from "./dayBackgroundOpacity.js";
+import "./slider.js";
 import "./toggleDisplay.js";
 import "./scrollContent.js";
 
@@ -11,6 +12,7 @@ const API_KEY = `6cf9b9c5b948a69676088ed828c5535d`;
 const OPEN_WEATHER_API = "api.openweathermap.org/data/2.5";
 
 var geolocationAllowed = false;
+const root = document.documentElement;
 const weatherDisplay = document.getElementById("app-container");
 
 function initialize() {
@@ -76,11 +78,18 @@ function buildUI(weatherData) {
   buildHourlyForecastFeature(weatherData.hourly);
   buildDailyForecastFeature(weatherData.daily);
   // console.log("weatherData: ", weatherData);
+  root.style.setProperty('--dayBackgroundOpacity', getDayBackgroundOpacity(weatherData.current));
+
+  return true;
 }
 
 function buildAlert(alerts) {
+  const css = `
+    background:  #6ea0d2;
+    color: #fcf4f1;
+  `
   if (!alerts) {
-    console.warn("There are no weather alerts in this area.");
+    console.log("%c There are no weather alerts in this area.", css);
     return;
   }
   const alertContainer = document.getElementById("alert");
@@ -103,11 +112,9 @@ function buildCurrentWeatherFeature(weatherData) {
     weather,
   } = weatherData;
 
-  const body = document.getElementById("body");
   const currentWeatherContainer = document.getElementById(
     "current-weather__container"
   );
-  const dayOrNight = utils.getDayOrNight(true, weatherData);
   let oWeather = weather[0];
 
   const cloudinessElement = Elements.createCloudsElement(clouds);
@@ -127,10 +134,11 @@ function buildCurrentWeatherFeature(weatherData) {
   );
   const rainElement = Elements.createRainElement(rain);
   const snowElement = Elements.createSnowElement(snow);
-  const sunriseSunsetElement = Elements.createSunriseSunsetElement(
-    weatherData,
-    100
-  );
+  // TODO: implement
+  // const sunriseSunsetElement = Elements.createSunriseSunsetElement(
+  //   weatherData,
+  //   100
+  // );
   const sunriseElement = Elements.createSunriseElement(sunrise);
   const sunsetElement = Elements.createSunsetElement(sunset);
   const temperatureElement = Elements.createTemperatureElement(weatherData);
@@ -141,7 +149,7 @@ function buildCurrentWeatherFeature(weatherData) {
   const uviElement = Elements.createUviElement(uvi);
 
   // TODO get city name
-  body.classList.add(dayOrNight);
+  // body.classList.add(dayOrNight);
   currentWeatherContainer.innerHTML = "";
   currentWeatherContainer.append(
     dateTimeElement,

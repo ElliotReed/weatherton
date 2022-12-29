@@ -13,9 +13,10 @@
   --danger: #e53210;
 
   /* colors */
-  --dayColor: #6ea0d2;
-  --dayColorLight: #70879c;
+  --dayColor: hsl(210, 53%, 63%);
+  --dayColorRGB: 110 160 210;
   --dayColorLight: #a0c1e0;
+  --dayColorLightRGB: 160 193 224;
   --dayColorOpacity: #6ea0d29e;
   --nightColor: #0f141e;
   --nightColorLight: #0f141e;
@@ -27,16 +28,9 @@
   --uviRed: #e53210;
   --uviViolet: #b567a4;
   --test: #703322;
-  --scrollbarHover: #78a7d6;
-  --scrollbarForegroundVerticle: linear-gradient(90deg,
-      #6ea0d2,
-      #6ea0d288,
-      #6ea0d2);
-  --scrollbarForegroundHorizontal: linear-gradient(0deg,
-      #6ea0d2,
-      #6ea0d288,
-      #6ea0d2);
-  --scrollbarBackground: #a0c1e0;
+  --scrollbarThumbHover: #ffffff44;
+  --scrollbarThumb: #ffffff22;
+  --scrollbarBackground: hsl(210, 53%, 43%);
   /* sizes */
   --goldenRatio: 1.618;
   --factor__small: 0.38rem;
@@ -70,6 +64,9 @@
   /* fonts */
   --fontStackSans: "Quicksand", sans-serif;
   --fontStackSerif: "Georgia", serif;
+
+  --dayBackgroundOpacity: 0;
+  --app-background: linear-gradient(to top, rgb(var(--dayColorRGB) / var(--dayBackgroundOpacity)), rgb(var(--dayColorLightRGB) / var(--dayBackgroundOpacity)))
 }
 
 /* #endregion Custom properties */
@@ -87,27 +84,38 @@ body {
   padding: 0;
   margin: 0;
   overflow-x: hidden;
+  background: linear-gradient(to top,
+      var(--nightColor),
+      var(--nightColorLight));
+}
+
+.scrollbar {
+  scrollbar-color: var(--scrollbarBackground) var(--scrollbarForegroundVerticle);
+  scrollbar-width: thin;
 }
 
 .scrollbar::-webkit-scrollbar {
   width: .76rem;
   height: .76rem;
-  /* Mostly for vertical scrollbars */
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
+  /* border: 1px solid var(--scrollbarBackground); */
   border-radius: var(--borderRadius);
-  background: var(--scrollbarForegroundVerticle);
+  background: var(--scrollbarThumb);
 }
 
 .scrollbar::-webkit-scrollbar-thumb:hover {
-  border: 1px solid var(--scrollbarBackground);
-  background: var(--scrollbarHover);
+  background: var(--scrollbarThumbHover);
 }
 
 .scrollbar::-webkit-scrollbar-track {
-  box-shadow: inset 1px 1px 8px #2222223f, inset -1px -1px 8px #2222223f;
+  border-radius: var(--borderRadius);
   background: var(--scrollbarBackground);
+}
+
+body.scrollbar::-webkit-scrollbar-track {
+  border-radius: 0;
 }
 
 *,
@@ -235,9 +243,7 @@ section {
 }
 
 .night {
-  background: linear-gradient(to top,
-      var(--nightColor),
-      var(--nightColorLight));
+  background: linear-gradient(to top, var(--nightColor), var(--nightColorLight));
 }
 
 .seperator {
@@ -281,7 +287,7 @@ section {
   min-height: 100vh;
   color: var(--light);
   overflow: hidden;
-  user-select: none;
+  background: var(--app-background);
 }
 
 #forecast-feature__container {
@@ -331,9 +337,23 @@ section {
 }
 
 .forecast-container {
-  min-height: 20rem;
+  position: relative;
+  width: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
+  white-space: nowrap;
+  transition: all 0.2s;
+  transform: scale(0.98);
+  will-change: transform;
+  user-select: none;
+  cursor: pointer;
+}
+
+.forecast-container.active {
+  background: rgba(255, 255, 255, 0.05);
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  transform: scale(1);
 }
 
 /* @media (min-width: 1024px) {

@@ -68,7 +68,7 @@ export function createAlert(alerts = []) {
   const alertContainer = createElement("div", { class: "alert__container scrollbar" });
 
   alerts.forEach((alert) => {
-    console.log(alert);
+    console.warn(alert);
     const endDate = createDateTimeElement(alert.end, { includesTime: true });
     const startDate = createDateTimeElement(alert.start, {
       includesTime: true,
