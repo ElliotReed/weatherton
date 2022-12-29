@@ -91,8 +91,8 @@ export function getDayBackgroundOpacity(weatherData) {
 
   // TODO: add test
   // set for development
-  currentDate.setHours(15);
-  currentDate.setMinutes(50);
+  // currentDate.setHours(15);
+  // currentDate.setMinutes(50);
 
   if (isDaytime(currentDate, sunriseDate, sunsetDate)) {
     opacity = 1;

@@ -1,6 +1,6 @@
 # Weatherton
 
-[https://elliotreed.github.io/weather/](https://elliotreed.github.io/weatherton/)
+[https://elliotreed.github.io/weatherton/](https://elliotreed.github.io/weatherton/)
 
 A simple weather app using HTML, CSS and JavaScript
 
