@@ -453,7 +453,7 @@ section {
   width: 1em;
   height: 1em;
   vertical-align: text-bottom;
-  background-image: url("../images/raindrop.svg");
+  background-image: url("/images/raindrop.svg");
 }
 
 .percent::after {

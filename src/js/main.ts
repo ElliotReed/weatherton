@@ -1,6 +1,6 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import { setupCounter } from './counter'
+// import typescriptLogo from '..//typescript.svg'
+import { setupCounter } from '../js/counter'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
