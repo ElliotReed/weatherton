@@ -1,6 +1,6 @@
 import * as Elements from "./elements.js";
 import { createElement } from "./createElement.js";
-import { getDayBackgroundOpacity } from "./dayBackgroundOpacity.js";
+import { getDayBackgroundOpacity, getForecastOpacityOptions } from "./dayBackgroundOpacity.js";
 import "./slider.js";
 import "./toggleDisplay.js";
 import "./scrollContent.js";
@@ -75,7 +75,7 @@ function buildUI(weatherData) {
   buildAlert(weatherData.alerts);
   buildCurrentWeatherFeature(weatherData.current);
   TodaysForecast(weatherData.daily[0]);
-  buildHourlyForecastFeature(weatherData.hourly);
+  buildHourlyForecastFeature(weatherData);
   buildDailyForecastFeature(weatherData.daily);
   // console.log("weatherData: ", weatherData);
   root.style.setProperty('--dayBackgroundOpacity', getDayBackgroundOpacity(weatherData.current));
@@ -170,23 +170,24 @@ function buildCurrentWeatherFeature(weatherData) {
   );
 }
 
-function buildHourlyForecastFeature(weatherDataList) {
+function buildHourlyForecastFeature(weatherData) {
   const forecastContainer = document.getElementById(
     "hourly-weather__container"
   );
+  const weatherDataList = weatherData.hourly;
   forecastContainer.innerHTML = "";
-  weatherDataList.map((weatherData) => {
-    const weather = weatherData.weather[0];
-    const dateTimeElement = Elements.createDateTimeElement(weatherData.dt, {
+  weatherDataList.map((forecastData) => {
+    const weather = forecastData.weather[0];
+    const dateTimeElement = Elements.createDateTimeElement(forecastData.dt, {
       includesTime: true,
       includesDay: false,
     });
     const probabilityOfPrecipitaionElement =
-      Elements.createProbabilityOfPrecipitaionElement(weatherData.pop);
-    const rainElement = Elements.createRainElement(weatherData.rain);
-    const snowElement = Elements.createSnowElement(weatherData.snow);
+      Elements.createProbabilityOfPrecipitaionElement(forecastData.pop);
+    const rainElement = Elements.createRainElement(forecastData.rain);
+    const snowElement = Elements.createSnowElement(forecastData.snow);
     const WeatherIcon = Elements.WeatherIcon(weather);
-    const temperatureElement = Elements.createTemperatureElement(weatherData);
+    const temperatureElement = Elements.createTemperatureElement(forecastData);
     const weatherMainElement = Elements.createWeatherMainElement(
       weather.main,
       weather.description
@@ -194,11 +195,11 @@ function buildHourlyForecastFeature(weatherDataList) {
     const weatherDescriptionElement = Elements.createWeatherDescriptionElement(
       weather.description
     );
-    const windElement = Elements.createWindElement(weatherData);
+    const windElement = Elements.createWindElement(forecastData);
     const pressureElement = Elements.createPressureElement(
-      weatherData.pressure
+      forecastData.pressure
     );
-    const uviElement = Elements.createUviElement(weatherData.uvi);
+    const uviElement = Elements.createUviElement(forecastData.uvi);
 
     const div = createElement(
       "div",
@@ -207,14 +208,20 @@ function buildHourlyForecastFeature(weatherDataList) {
       WeatherIcon,
       temperatureElement,
       probabilityOfPrecipitaionElement,
-      weatherData.snow != undefined ? snowElement : "",
-      weatherData.rain != undefined ? rainElement : "",
+      forecastData.snow != undefined ? snowElement : "",
+      forecastData.rain != undefined ? rainElement : "",
       // weatherMainElement,
       // weatherDescriptionElement,
       windElement,
       // pressureElement,
       uviElement
     );
+
+    const options = getForecastOpacityOptions(forecastData, weatherData);
+    const hourlyOpacity = getDayBackgroundOpacity(options);
+    const background = `linear-gradient(to top, rgb(110 160 210 / ${hourlyOpacity}), rgb(160 193 224 / ${hourlyOpacity}))`;
+    div.style.background = background;
+
     forecastContainer.appendChild(div);
   });
 }

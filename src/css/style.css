@@ -13,13 +13,13 @@
   --danger: #e53210;
 
   /* colors */
-  --dayColor: hsl(210, 53%, 63%);
-  --dayColorRGB: 110 160 210;
-  --dayColorLight: #a0c1e0;
-  --dayColorLightRGB: 160 193 224;
+  --dayColor: rgb(111, 161, 211);
+  --dayColorRGB: 111 161 211;
+  --dayColorLight: rgb(157, 191, 225);
+  --dayColorLightRGB: 157 191 225;
   --dayColorOpacity: #6ea0d29e;
-  --nightColor: #0f141e;
-  --nightColorLight: #0f141e;
+  --nightColor: rgb(15, 20, 31);
+  --nightColorLight: hsl(220, 33%, 21%);
   --nightColorOpacity: rgba(15, 20, 30, 0.618);
   --red: #441414;
   --uviGreen: #3ea72d;
@@ -66,7 +66,10 @@
   --fontStackSerif: "Georgia", serif;
 
   --dayBackgroundOpacity: 0;
-  --app-background: linear-gradient(to top, rgb(var(--dayColorRGB) / var(--dayBackgroundOpacity)), rgb(var(--dayColorLightRGB) / var(--dayBackgroundOpacity)))
+  --app-background: linear-gradient(to top, rgb(var(--dayColorRGB) / var(--dayBackgroundOpacity)), rgb(var(--dayColorLightRGB) / var(--dayBackgroundOpacity)));
+
+  --hourlyBackgroundOpacity: 0;
+  --hourly-background: linear-gradient(to top, rgb(var(--dayColorRGB) / var(--hourlyBackgroundOpacity)), rgb(var(--dayColorLightRGB) / var(--hourlyBackgroundOpacity)))
 }
 
 /* #endregion Custom properties */
@@ -191,10 +194,9 @@ section {
 .card {
   display: flex;
   flex-direction: column;
-  margin-top: 1rem;
-  border-radius: var(--borderRadius);
-  box-shadow: inset 0 0 1px #2222223f;
   min-width: 12rem;
+  margin-block-start: 1rem;
+  box-shadow: inset 0 0 1px #2222223f;
   padding: var(--padding);
 }
 
@@ -453,7 +455,7 @@ section {
   width: 1em;
   height: 1em;
   vertical-align: text-bottom;
-  background-image: url("/images/raindrop.svg");
+  background-image: url("../images/raindrop.svg");
 }
 
 .percent::after {
@@ -563,6 +565,20 @@ section {
 
 #hourly-weather__container {
   display: flex;
+}
+
+#hourly-weather__container .card {
+  position: relative;
+}
+
+#hourly-weather__container .card::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(to top,
+      var(--nightColor),
+      var(--nightColorLight));
+  z-index: -1;
 }
 
 /* #endregion Hourly */

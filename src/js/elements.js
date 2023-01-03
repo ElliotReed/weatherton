@@ -3,6 +3,7 @@ import { drawBarometer } from "./barometer.js";
 import { createSunriseSunsetCanvas } from "./sunriseSunset.js";
 import { createElement } from "./createElement.js";
 import * as utils from "./utils.js";
+import raindropImg from '../images/raindrop.svg?url';
 // default: kelvin, metric: Celsius, imperial: Fahrenheit.
 let units;
 
@@ -241,7 +242,7 @@ export function createPressureElement(pressure, size = 50) {
 export function createProbabilityOfPrecipitaionElement(pop) {
   const raindropIcon = createElement("img", {
     class: "raindroplet",
-    src: "/images/raindrop.svg",
+    src: raindropImg,
     alt: "",
     width: "16",
     height: "16",

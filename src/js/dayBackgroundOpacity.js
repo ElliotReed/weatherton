@@ -108,3 +108,27 @@ export function getDayBackgroundOpacity(weatherData) {
 
   return opacity;
 }
+
+/*
+  Changes the weather and forecast data into standard values for getDayBackgoundOpacity
+*/
+export function getForecastOpacityOptions(forecastData, weatherData) {
+  const forecastDate = unixDate(forecastData.dt);
+  const sunriseDate = unixDate(weatherData.current.sunrise);
+  const sunsetDate = unixDate(weatherData.current.sunset)
+
+  // increases sunrise and sunset unitl matched to current date dt
+  while (sunriseDate.getDate() < forecastDate.getDate()) {
+    sunriseDate.setDate(sunriseDate.getDate() + 1);
+    sunsetDate.setDate(sunsetDate.getDate() + 1);
+  }
+
+  // convert dates back to UTC
+  const opacityOptions = {
+    dt: forecastDate.getTime() / 1000,
+    sunrise: sunriseDate.getTime() / 1000,
+    sunset: sunsetDate.getTime() / 1000,
+  }
+
+  return opacityOptions
+}
