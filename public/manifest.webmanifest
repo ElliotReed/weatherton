@@ -1,6 +1,8 @@
 {
-  "name": "Weatherton, your personal weather butler",
+  "name": "Weatherton",
   "short_name": "Weatherton",
+  "start_url": "https://elliotreed.github.io/weatherton/",
+  "display": "standalone",
   "icons": [
     {
       "src": "./icon-192.png",
@@ -13,8 +15,6 @@
       "sizes": "512x512"
     }
   ],
-  "theme_color": "#6ea0d2",
   "background_color": "#6ea0d2",
-  "display": "standalone",
-  "start_url": "https://elliotreed.github.io/weatherton/"
+  "theme_color": "#6ea0d2"
 }
