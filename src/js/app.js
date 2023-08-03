@@ -8,6 +8,7 @@ import "./scrollContent.js";
 import '../css/normalize.css'
 import '../css/style.css'
 
+let API_KEY = ''; // set in initialize
 const OPEN_WEATHER_API = "api.openweathermap.org/data/2.5";
 const FETCH_KEY_URL = 'https://api.elliotreed.net/key/weatherton';
 
