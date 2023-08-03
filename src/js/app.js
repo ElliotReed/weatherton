@@ -7,22 +7,23 @@ import "./scrollContent.js";
 
 import '../css/normalize.css'
 import '../css/style.css'
-// Initialize variables
-const API_KEY = `6cf9b9c5b948a69676088ed828c5535d`;
-const OPEN_WEATHER_API = "api.openweathermap.org/data/2.5";
 
-var geolocationAllowed = false;
+const OPEN_WEATHER_API = "api.openweathermap.org/data/2.5";
+const FETCH_KEY_URL = 'https://api.elliotreed.net/key/weatherton';
+
+let geolocationAllowed = false;
 const root = document.documentElement;
 const weatherDisplay = document.getElementById("app-container");
 
-function initialize() {
+async function initialize() {
+  API_KEY = await getKey();
   getData();
   setInterval(() => {
     getData();
   }, 10 * 60 * 1000); // minutes * seconds * milliseconds
 }
 
-async function getData() {
+async function getData(key) {
   const weatherData = await fetchData();
   buildUI(weatherData);
 }
@@ -40,6 +41,13 @@ function getUserPosition() {
   function geoPositionFail() {
     weatherDisplay.innerText = "Geocoder failed.";
   }
+}
+
+async function getKey() {
+  const response = await fetch(FETCH_KEY_URL);
+  const data = await response.json();
+  return data.key;
+
 }
 
 async function fetchData() {
@@ -77,7 +85,6 @@ function buildUI(weatherData) {
   TodaysForecast(weatherData.daily[0]);
   buildHourlyForecastFeature(weatherData);
   buildDailyForecastFeature(weatherData.daily);
-  // console.log("weatherData: ", weatherData);
   root.style.setProperty('--dayBackgroundOpacity', getDayBackgroundOpacity(weatherData.current));
 
   return true;
