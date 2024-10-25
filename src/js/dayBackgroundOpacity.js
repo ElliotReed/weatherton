@@ -80,8 +80,8 @@ function unixDate(milliseconds) {
   return new Date(milliseconds * 1000);
 }
 
-export function getDayBackgroundOpacity(weatherData) {
-  const { dt, sunrise, sunset } = weatherData;
+export function getDayBackgroundOpacity(options) {
+  const { dt, sunrise, sunset } = options;
   const currentDate = unixDate(dt);
   const sunriseDate = unixDate(sunrise);
   const sunsetDate = unixDate(sunset);

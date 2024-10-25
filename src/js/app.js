@@ -1,6 +1,8 @@
 import * as Elements from "./elements.js";
 import { createElement } from "./createElement.js";
-import { getDayBackgroundOpacity, getForecastOpacityOptions } from "./dayBackgroundOpacity.js";
+
+import { getDayBackgroundOpacity, getForecastOpacityOptions }
+  from "./dayBackgroundOpacity.js";
 import "./slider.js";
 import "./toggleDisplay.js";
 import "./scrollContent.js";
@@ -8,28 +10,36 @@ import "./scrollContent.js";
 import '../css/normalize.css'
 import '../css/style.css'
 
-let API_KEY = ''; // set in initialize
-const OPEN_WEATHER_API = "api.openweathermap.org/data/3.0";
-const FETCH_KEY_URL = 'https://api.elliotreed.net/key/weatherton';
+// production
+// const FETCH_URL = 'https://api.elliotreed.net/weatherton';
+
+// development
+const FETCH_URL = 'http://localhost:3066/weatherton';
 
 let geolocationAllowed = false;
 const root = document.documentElement;
 const weatherDisplay = document.getElementById("app-container");
 
 async function initialize() {
-  API_KEY = await getKey();
   getData();
+
+  //  data refreshes every 10 minutes
   setInterval(() => {
+    getCurrentWeather();
     getData();
-  }, 10 * 60 * 1000); // minutes * seconds * milliseconds
+  }, 10 * 60 * 1000); // minutes * seconds * milliseconds,
 }
 
-async function getData(key) {
+async function getData() {
   const weatherData = await fetchData();
   buildUI(weatherData);
 }
 
 function getUserPosition() {
+  function geoPositionFail() {
+    weatherDisplay.innerText = "Geocoder failed.";
+  }
+
   return new Promise(function (resolve, geoPositionFail) {
     if (navigator.geolocation) {
       geolocationAllowed = true;
@@ -38,17 +48,6 @@ function getUserPosition() {
       weatherDisplay.innerText = "Geolocation is not supported by this browser";
     }
   });
-
-  function geoPositionFail() {
-    weatherDisplay.innerText = "Geocoder failed.";
-  }
-}
-
-async function getKey() {
-  const response = await fetch(FETCH_KEY_URL);
-  const data = await response.json();
-  return data.key;
-
 }
 
 async function fetchData() {
@@ -61,15 +60,16 @@ async function fetchData() {
 function getQueryString(position) {
   const latitude = position.coords.latitude;
   const longitude = position.coords.longitude;
+
   return `lat=${latitude}&lon=${longitude}`;
 }
 
 function getRequestURL(queryString) {
-  return `${OPEN_WEATHER_API}/onecall?${queryString}&appid=${API_KEY}`;
+  return `${FETCH_URL}/?${queryString}`;
 }
 
 function getWeatherData(requestURL) {
-  const weatherData = fetch(`https://${requestURL}`)
+  const weatherData = fetch(requestURL)
     .then((response) => response.json())
     .then((data) => data)
     .catch((err) => {
@@ -86,7 +86,13 @@ function buildUI(weatherData) {
   TodaysForecast(weatherData.daily[0]);
   buildHourlyForecastFeature(weatherData);
   buildDailyForecastFeature(weatherData.daily);
-  root.style.setProperty('--dayBackgroundOpacity', getDayBackgroundOpacity(weatherData.current));
+  root.style.setProperty('--dayBackgroundOpacity',
+    getDayBackgroundOpacity({
+      dt: weatherData.current.dt,
+      sunrise: weatherData.current.sunrise,
+      sunset: weatherData.current.sunset
+    }
+    ));
 
   return true;
 }
@@ -111,18 +117,25 @@ function buildCurrentWeatherFeature(weatherData) {
     clouds,
     dew_point,
     dt,
+    feels_like,
     humidity,
+    pressure,
     rain,
     snow,
     sunrise,
     sunset,
+    temp,
     uvi,
+    visibility,
     weather,
+    wind_deg,
+    wind_speed,
   } = weatherData;
 
   const currentWeatherContainer = document.getElementById(
     "current-weather__container"
   );
+
   let oWeather = weather[0];
 
   const cloudinessElement = Elements.createCloudsElement(clouds);
@@ -137,7 +150,7 @@ function buildCurrentWeatherFeature(weatherData) {
   const humidtyElement = Elements.createHumidityElement(humidity);
   const iconElement = Elements.WeatherIcon(oWeather, "large");
   const pressureElement = Elements.createPressureElement(
-    weatherData.pressure,
+    pressure,
     76
   );
   const rainElement = Elements.createRainElement(rain);
@@ -149,11 +162,12 @@ function buildCurrentWeatherFeature(weatherData) {
   // );
   const sunriseElement = Elements.createSunriseElement(sunrise);
   const sunsetElement = Elements.createSunsetElement(sunset);
-  const temperatureElement = Elements.createTemperatureElement(weatherData);
+  const temperatureElement = Elements.createTemperatureElement(
+    temp, feels_like);
   const visibilityElement = Elements.createVisibilityElement(
-    weatherData.visibility
+    visibility
   );
-  const windElement = Elements.createWindElement(weatherData, 76);
+  const windElement = Elements.createWindElement(wind_deg, null, wind_speed, 76);
   const uviElement = Elements.createUviElement(uvi);
 
   // TODO get city name
@@ -195,7 +209,7 @@ function buildHourlyForecastFeature(weatherData) {
     const rainElement = Elements.createRainElement(forecastData.rain);
     const snowElement = Elements.createSnowElement(forecastData.snow);
     const WeatherIcon = Elements.WeatherIcon(weather);
-    const temperatureElement = Elements.createTemperatureElement(forecastData);
+    const temperatureElement = Elements.createTemperatureElement(forecastData.temp, forecastData.feels_like);
     const weatherMainElement = Elements.createWeatherMainElement(
       weather.main,
       weather.description
@@ -203,7 +217,8 @@ function buildHourlyForecastFeature(weatherData) {
     const weatherDescriptionElement = Elements.createWeatherDescriptionElement(
       weather.description
     );
-    const windElement = Elements.createWindElement(forecastData);
+    const windElement = Elements.createWindElement(
+      forecastData.wind_deg, forecastData.wind_speed, forecastData.wind_gust);
     const pressureElement = Elements.createPressureElement(
       forecastData.pressure
     );

@@ -394,9 +394,7 @@ function createTemperatureValueElement(temp, feels_like) {
   return temperatureValueElement;
 }
 
-export function createTemperatureElement(weatherData) {
-  const { temp, feels_like } = weatherData;
-
+export function createTemperatureElement(temp, feels_like) {
   if (typeof temp === "object" || typeof feels_like === "object") {
     console.error(
       "WeatherData objects are not allowed, use DailyTemperature() instead"
@@ -609,8 +607,7 @@ export function createWeatherMainElement(main, description) {
   return div;
 }
 
-export function createWindElement(weatherData, compassSize) {
-  const { wind_deg, wind_gust, wind_speed } = weatherData;
+export function createWindElement(wind_deg, wind_gust, wind_speed, compassSize) {
   const speedTextContent = `${utils.convertSpeed(wind_speed, "m/s", "mph")}`;
   let gustTextContent = "";
   if (wind_gust != undefined) {
