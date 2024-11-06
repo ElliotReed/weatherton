@@ -10,6 +10,8 @@
 
 ## Deployment
 
+In app.js, set to the production url (uncomment).
+
 after build, dist folder is deployed to github pages as the gh-pages branch
 
     npm run deploy

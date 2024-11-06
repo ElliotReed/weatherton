@@ -11,10 +11,10 @@ import '../css/normalize.css'
 import '../css/style.css'
 
 // production
-// const FETCH_URL = 'https://api.elliotreed.net/weatherton';
+const FETCH_URL = 'https://api.elliotreed.net/weatherton';
 
 // development
-const FETCH_URL = 'http://localhost:3066/weatherton';
+// const FETCH_URL = 'http://localhost:3066/weatherton';
 
 let geolocationAllowed = false;
 const root = document.documentElement;
@@ -273,7 +273,10 @@ function buildDailyForecastFeature(weatherDataList) {
       weather.description
     );
     const WeatherIcon = Elements.WeatherIcon(weather);
-    const windElement = Elements.createWindElement(weatherData);
+    const windElement = Elements.createWindElement(
+      weatherData.wind_deg,
+      weatherData.wind_gust,
+      weatherData.wind_speed);
     const pressureElement = Elements.createPressureElement(
       weatherData.pressure,
       60

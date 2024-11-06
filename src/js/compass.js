@@ -1,31 +1,28 @@
-export function createCompass(degrees, canvasSize = 50) {
+export function createCompass(degrees) {
   const fallbackText = `Your browser does not support HTML5 Canvas.`;
-
   const colorLight = "#FCF4F1";
   const colorDark = "#444444";
-  const canvasTranslate = canvasSize / 2;
-  const canvas = document.createElement("canvas");
-  const compassRadius = canvasSize / 5;
-  const ctx = canvas.getContext("2d");
-  const shadowOffsetX = canvasSize / 25;
-  const shadowOffsetY = canvasSize / 25;
   const shadowBlur = 4;
   const shadowColor = `${colorDark}66`;
 
-  // canvas
-  canvas.textContent = fallbackText;
-  canvas.setAttribute("class", "compass");
-  canvas.setAttribute("width", canvasSize);
-  canvas.setAttribute("height", canvasSize);
+  let canvas;
+  let ctx;
+  let compassRadius;
+  let shadowOffsetX;
+  let shadowOffsetY;
 
-  // Canvas outline for development
-  // ctx.strokeRect(0, 0, 100, 100);
+  function initializeCanvas() {
+    canvas = document.createElement("canvas");
+    canvas.textContent = fallbackText;
+    canvas.setAttribute("class", "compass");
+    ctx = canvas.getContext("2d");
+  }
 
-  // default properties
-  ctx.translate(canvasTranslate, canvasTranslate);
-  ctx.strokeStyle = `${colorLight}cc`;
-  ctx.fillStyle = `${colorLight}cc`;
-  ctx.lineWidth = 1;
+  function assignVariables(canvasSize) {
+    compassRadius = canvasSize / 5;
+    shadowOffsetX = canvasSize / 25;
+    shadowOffsetY = canvasSize / 25;
+  }
 
   function drawNESWMarkers() {
     const largeMarkerLineLength = compassRadius + compassRadius / 2.5;
@@ -144,14 +141,42 @@ export function createCompass(degrees, canvasSize = 50) {
     ctx.restore();
   }
 
-  if (canvasSize > 50) {
-    drawBetweenMiddleMarkers();
-    drawMiddleMarkers();
-    drawDirectionLabels();
-    drawNESWMarkers();
+  function draw() {
+    ctx.strokeStyle = `${colorLight}cc`;
+    ctx.fillStyle = `${colorLight}cc`;
+    ctx.lineWidth = 1;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Canvas outline for development, uncomment next line to see outline
+    // ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+
+    if (canvas.width > 60) {
+      drawBetweenMiddleMarkers();
+      drawMiddleMarkers();
+      drawDirectionLabels();
+      drawNESWMarkers();
+    }
+
+    drawCompassOutline();
+    drawPointer();
   }
-  drawCompassOutline();
-  drawPointer();
+
+  function resizeCanvas() {
+    const container = canvas.parentElement;
+    if (!container) return;
+
+    // Set canvas size to match the container
+    canvas.width = container.offsetHeight;
+    canvas.height = container.offsetHeight;
+
+    assignVariables(canvas.width);
+    draw();
+  }
+
+  initializeCanvas();
+  resizeCanvas();
+
+  canvas.resize = resizeCanvas;
 
   return canvas;
 }

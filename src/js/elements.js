@@ -112,8 +112,8 @@ export function createCityNameElement(city) {
   return div;
 }
 
-export function setUnits(units) {
-  units = units;
+export function setUnits(unitsArg) {
+  units = unitsArg;
 }
 
 export function createCloudsElement(clouds) {
@@ -140,6 +140,7 @@ function createDateTimeElement(UTCDate, options = {}) {
     includesYear = false,
     includesDay = true,
   } = options;
+  // converts the Unix time (seconds) to milliseconds
   const convertedDate = UTCDate * 1000;
   const year = new Date(convertedDate).getFullYear();
   const dayName = new Date(convertedDate).toDateString().split(" ")[0];
@@ -176,7 +177,7 @@ function createDateTimeElement(UTCDate, options = {}) {
     {
       class: "date date-time",
       title: `${month} ${day}, ${year}`,
-      datetime: `${month} ${day}, ${year}`,
+      datetime: new Date(convertedDate).toISOString(),
     },
     dayNameElement,
     includesDay ? dayElement : "",
@@ -228,13 +229,16 @@ export function createHumidityElement(humidity) {
   return humidityElement;
 }
 
-export function createPressureElement(pressure, size = 50) {
-  const barometer = drawBarometer(pressure, size);
+export function createPressureElement(pressure) {
+  const barometer = drawBarometer(pressure);
   const pressureElement = createElement(
     "div",
-    { id: "pressure", class: "flex-center-all" },
+    { class: "flex-center-all pressure" },
     barometer
   );
+
+  const pressureElementObserver = new ResizeObserver(() => barometer.resize());
+  pressureElementObserver.observe(pressureElement);
 
   return pressureElement;
 }
@@ -247,10 +251,11 @@ export function createProbabilityOfPrecipitaionElement(pop) {
     width: "16",
     height: "16",
   });
+
   // const raindropElement = createRaindrop();
   const probabilityOfPrecipitaionElement = createElement(
     "p",
-    { id: "probability-precipitation", class: "txt-semi-bold percent" },
+    { class: "probability-precipitation txt-semi-bold percent" },
     raindropIcon,
     `${utils.convertToPercent(pop)}`
   );
@@ -284,7 +289,7 @@ export function createRainElement(rain, showLabel = true) {
 
   const rainElement = createElement(
     "p",
-    { id: "rainfall", class: "" },
+    { class: "rainfall" },
     showLabel ? label : "",
     value,
     units
@@ -320,7 +325,7 @@ export function createSnowElement(snow, showLabel = true) {
 
   const snowElement = createElement(
     "p",
-    { id: "snowfall", class: "" },
+    { class: "snowfall" },
     showLabel ? label : "",
     value,
     units
@@ -367,6 +372,7 @@ function createTemperatureValueElement(temp, feels_like) {
   }
 
   const slash = createElement("span", { class: "temperature__slash" }, `/`);
+
   const feelsLikeElement = createElement(
     "span",
     {
@@ -375,6 +381,7 @@ function createTemperatureValueElement(temp, feels_like) {
     },
     `${getTemperatureString(feels_like)}`
   );
+
   const actualTemperatureElement = createElement(
     "span",
     {
@@ -441,11 +448,11 @@ export function DailyTemperature(weatherData) {
   dayTimes.forEach((time) => {
     const label = createElement("span", { class: "label" }, time.name);
     const element = createElement(
-      "p",
+      "div",
       { class: "daily-temp" },
       label,
       createElement(
-        "span",
+        "div",
         {},
         createTemperatureValueElement(temp[time.value], feels_like[time.value])
       )
@@ -566,11 +573,11 @@ export function createWeatherDescriptionElement(description) {
 export function WeatherIcon(weather, size = "default") {
   const { icon, main, description } = weather;
   let sizeString = "";
-  let imgDimensions = "50px";
+  let imgDimensions = "50";
 
   if (size === "large") {
     sizeString = "@2x";
-    imgDimensions = "100px";
+    imgDimensions = "100";
   }
 
   let imgSource = `https://openweathermap.org/img/wn/${icon}${sizeString}.png`;
@@ -607,7 +614,7 @@ export function createWeatherMainElement(main, description) {
   return div;
 }
 
-export function createWindElement(wind_deg, wind_gust, wind_speed, compassSize) {
+export function createWindElement(wind_deg, wind_gust, wind_speed) {
   const speedTextContent = `${utils.convertSpeed(wind_speed, "m/s", "mph")}`;
   let gustTextContent = "";
   if (wind_gust != undefined) {
@@ -617,7 +624,8 @@ export function createWindElement(wind_deg, wind_gust, wind_speed, compassSize) 
       "mph"
     )}`;
   }
-  const compass = createCompass(wind_deg, compassSize);
+  const compass = createCompass(wind_deg);
+  // addEventListener('resize', resizeCanvasContainer(compass));
   const textSpan = createElement("span", {}, gustTextContent);
   const text = createElement(
     "p",
@@ -626,7 +634,8 @@ export function createWindElement(wind_deg, wind_gust, wind_speed, compassSize) 
     textSpan
   );
   const windElement = createElement("div", { class: "wind" }, compass, text);
-
+  const windElementObserver = new ResizeObserver(() => compass.resize());
+  windElementObserver.observe(windElement);
   return windElement;
 }
 
