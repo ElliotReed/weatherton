@@ -4,7 +4,8 @@ export default defineConfig({
   base: '/weatherton/',
   rollupOptions: {
     input: {
-      main: 'index.html'
+      main: 'index.html',
+      compassDesign: 'compass-design.html'
     }
   }
 })

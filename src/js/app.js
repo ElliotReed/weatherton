@@ -218,7 +218,11 @@ function buildHourlyForecastFeature(weatherData) {
       weather.description
     );
     const windElement = Elements.createWindElement(
-      forecastData.wind_deg, forecastData.wind_speed, forecastData.wind_gust);
+      forecastData.wind_deg,
+      forecastData.wind_speed,
+      forecastData.wind_gust,
+      'small'
+    );
     const pressureElement = Elements.createPressureElement(
       forecastData.pressure
     );
@@ -276,7 +280,9 @@ function buildDailyForecastFeature(weatherDataList) {
     const windElement = Elements.createWindElement(
       weatherData.wind_deg,
       weatherData.wind_gust,
-      weatherData.wind_speed);
+      weatherData.wind_speed,
+      'small'
+    );
     const pressureElement = Elements.createPressureElement(
       weatherData.pressure,
       60

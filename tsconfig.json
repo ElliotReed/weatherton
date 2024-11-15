@@ -19,6 +19,8 @@
     "skipLibCheck": true
   },
   "include": [
-    "src"
+    "src",
+    "_archive/counter.ts",
+    "_archive/app_v_1.js"
   ]
 }

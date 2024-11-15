@@ -1,8 +1,8 @@
-import { createCompass } from "./compass.js";
+import createCompassSVG from "./compassSVG.ts";
 import { drawBarometer } from "./barometer.js";
 import { createSunriseSunsetCanvas } from "./sunriseSunset.js";
 import { createElement } from "./createElement.js";
-import * as utils from "./utils.js";
+import * as utils from "./utils/utils.js";
 import raindropImg from '../images/raindrop.svg?url';
 // default: kelvin, metric: Celsius, imperial: Fahrenheit.
 let units;
@@ -614,7 +614,7 @@ export function createWeatherMainElement(main, description) {
   return div;
 }
 
-export function createWindElement(wind_deg, wind_gust, wind_speed) {
+export function createWindElement(wind_deg, wind_gust, wind_speed, size = 'default') {
   const speedTextContent = `${utils.convertSpeed(wind_speed, "m/s", "mph")}`;
   let gustTextContent = "";
   if (wind_gust != undefined) {
@@ -624,7 +624,7 @@ export function createWindElement(wind_deg, wind_gust, wind_speed) {
       "mph"
     )}`;
   }
-  const compass = createCompass(wind_deg);
+  const compass = createCompassSVG(wind_deg, size);
   // addEventListener('resize', resizeCanvasContainer(compass));
   const textSpan = createElement("span", {}, gustTextContent);
   const text = createElement(
@@ -634,8 +634,6 @@ export function createWindElement(wind_deg, wind_gust, wind_speed) {
     textSpan
   );
   const windElement = createElement("div", { class: "wind" }, compass, text);
-  const windElementObserver = new ResizeObserver(() => compass.resize());
-  windElementObserver.observe(windElement);
   return windElement;
 }
 
