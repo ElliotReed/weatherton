@@ -7,8 +7,8 @@ import "./slider.js";
 import "./toggleDisplay.js";
 import "./scrollContent.js";
 
-import '../css/normalize.css'
-import '../css/style.css'
+import './styles/normalize.css';
+import './styles/style.css';
 
 // production
 const FETCH_URL = 'https://api.elliotreed.net/weatherton';

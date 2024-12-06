@@ -3,8 +3,8 @@ Dynamic compass svg
 
  possibly make shadow dynamic ?
 */
-
-import { createSVGNode, setSVGAttributes } from './utils/svg-utils';
+import './extensions/sgv-extensions';
+import { createSVGNode, formatSVGValue } from './utils/svg-utils';
 
 // Designed as a square element
 const SVG_SIZE = 1000;
@@ -19,35 +19,30 @@ function createCompassSVG(
         x: width / 2,
         y: height / 2,
     }
-    const colorLight = "#FCF4F1";
-    const colorDark = "#444444";
+    const colorLight = '#FCF4F1';
+    const colorDark = '#444444';
     const compassRadius = SVG_SIZE / 4;
     const compassOutlineWidth = compassRadius / 4;
-    const shadowBlur = "0.5";
-    const shadowColor = colorDark;
-    const shadowOffsetX = String(SVG_SIZE / 40);
-    const shadowOffsetY = String(SVG_SIZE / 40);
 
-    const compassSVG = createSVGNode('svg');
-    setSVGAttributes(compassSVG, {
+    const compassSVG = createSVGNode('svg').setSVGAttributes({
         'viewBox': `0 0 ${width} ${height}`,
         'preserveAspectRatio': 'xMidYMid meet',
-        'xmlns': "http://www.w3.org/2000/svg",
+        'xmlns': 'http://www.w3.org/2000/svg',
+        'role': 'img',
+        'aria-label': `Compass`
     });
 
     function createDefs() {
         const defs = createSVGNode('defs');
 
-        const filter = createSVGNode('filter');
-        setSVGAttributes(filter, { 'id': 'dropShadow' });
+        const filter = createSVGNode('filter').setSVGAttributes({ 'id': 'dropShadow' });
 
-        const shadow = createSVGNode('feDropShadow');
-        setSVGAttributes(shadow, {
-            'dx': shadowOffsetX,
-            'dy': shadowOffsetY,
-            'stdDeviation': shadowBlur,
-            'flood-color': shadowColor,
-            'flood-opacity': "0.25"
+        const shadow = createSVGNode('feDropShadow').setSVGAttributes({
+            'dx': formatSVGValue(SVG_SIZE / 40),
+            'dy': formatSVGValue(SVG_SIZE / 40),
+            'stdDeviation': '0.5',
+            'flood-color': colorDark,
+            'flood-opacity': '0.25'
         })
 
         filter.appendChild(shadow);
@@ -99,14 +94,13 @@ function createCompassSVG(
 
         for (let i = 0; i < numberOfMarkers; i++) {
             const { width, height, yOffset, fillColor } = getMarkerVaribles(i);
-            const rect = createSVGNode('rect');
-            setSVGAttributes(rect, {
-                'x': String(center.x - width / 2),
-                'y': String(center.y + yOffset),
-                'width': String(width),
-                'height': String(height),
+            const rect = createSVGNode('rect').setSVGAttributes({
+                'x': formatSVGValue(center.x - width / 2),
+                'y': formatSVGValue(center.y + yOffset),
+                'width': formatSVGValue(width),
+                'height': formatSVGValue(height),
                 'fill': fillColor,
-                'rx': String(width),
+                'rx': formatSVGValue(width),
                 'transform': `rotate(${i * 90 / 4}, ${center.x}, ${center.y})`,
             });
             group.appendChild(rect);
@@ -118,24 +112,22 @@ function createCompassSVG(
     function createCompassRing() {
         const group = createSVGNode('g');
 
-        const compassOutline = createSVGNode('circle');
-        setSVGAttributes(compassOutline, {
-            'cx': String(center.x),
-            'cy': String(center.y),
-            'r': String(compassRadius),
+        const compassOutline = createSVGNode('circle').setSVGAttributes({
+            'cx': formatSVGValue(center.x),
+            'cy': formatSVGValue(center.y),
+            'r': formatSVGValue(compassRadius),
             'fill': 'none',
             'stroke': colorLight,
-            'stroke-width': String(compassOutlineWidth),
+            'stroke-width': formatSVGValue(compassOutlineWidth),
         });
 
-        const compassOutlineInnerStroke = createSVGNode('circle');
-        setSVGAttributes(compassOutlineInnerStroke, {
-            'cx': String(center.x),
-            'cy': String(center.y),
-            'r': String(compassRadius),
+        const compassOutlineInnerStroke = createSVGNode('circle').setSVGAttributes({
+            'cx': formatSVGValue(center.x),
+            'cy': formatSVGValue(center.y),
+            'r': formatSVGValue(compassRadius),
             'fill': 'none',
             'stroke': colorDark,
-            'stroke-width': String(compassOutlineWidth / 4),
+            'stroke-width': formatSVGValue(compassOutlineWidth / 4),
             'opacity': '0.5',
         });
 
@@ -153,21 +145,21 @@ function createCompassSVG(
             {
                 label: 'N',
                 x: center.x,
-                y: `${center.y - compassRadius - compassOutlineWidth - fontSize / 1.5}`
+                y: center.y - compassRadius - compassOutlineWidth - fontSize / 1.5
             },
             {
                 label: 'E',
-                x: `${center.x - fontSize / 1.5 - compassRadius - compassOutlineWidth}`,
+                x: center.x - fontSize / 1.5 - compassRadius - compassOutlineWidth,
                 y: center.y
             },
             {
                 label: 'S',
                 x: center.x,
-                y: `${center.y + fontSize / 1 + compassRadius + compassOutlineWidth}`
+                y: center.y + fontSize / 1 + compassRadius + compassOutlineWidth
             },
             {
                 label: 'W',
-                x: `${center.x + fontSize / 1.5 + compassRadius + compassOutlineWidth} `,
+                x: center.x + fontSize / 1.5 + compassRadius + compassOutlineWidth,
                 y: center.y
             },
         ]
@@ -175,17 +167,16 @@ function createCompassSVG(
         const labelGroup = createSVGNode('g');
 
         for (let label of labels) {
-            const directionTextElement = createSVGNode('text');
-            setSVGAttributes(directionTextElement, {
-                'x': String(label.x),
-                'y': String(label.y),
+            const directionTextElement = createSVGNode('text').setSVGAttributes({
+                'x': formatSVGValue(label.x),
+                'y': formatSVGValue(label.y),
                 'font-family': 'Arial',
-                'font-size': String(fontSize),
+                'font-size': formatSVGValue(fontSize),
                 'text-anchor': 'middle',
                 'dominant-baseline': 'middle',
                 'fill': letterFill,
                 'stroke': strokeColor,
-                'stroke-width': String(strokeWidth),
+                'stroke-width': formatSVGValue(strokeWidth),
             });
             directionTextElement.textContent = label.label;
             labelGroup.appendChild(directionTextElement);
@@ -206,31 +197,24 @@ function createCompassSVG(
         const pointerLeftWing = `${center.x + pointerWingX},${center.y - pointerWingY} `
         const pointerInnerTip = `${center.x},${center.y - pointerVertexY} `;
 
-        const pointer = createSVGNode('polygon');
-        setSVGAttributes(pointer, {
+        const pointer = createSVGNode('polygon').setSVGAttributes({
             'points': `${pointerTip} ${pointerLeftWing} ${pointerInnerTip} ${pointerRightWing}`,
             'fill': pointerFillColor,
             'stroke': pointerStrokeColor,
-            'stroke-width': String(pointerStrokeWidth),
+            'stroke-width': formatSVGValue(pointerStrokeWidth),
             'transform': `rotate(${degrees}, ${center.x}, ${center.y})`,
-            "filter": `url(#dropShadow)`,
+            'filter': `url(#dropShadow)`,
         });
         return pointer;
     }
 
-    const pointer = createPointer();
-    const ring = createCompassRing();
-    const defs = createDefs();
-    const directionLabels = createDirectionLabels();
-    const markers = createMarkers();
-
-    compassSVG.appendChild(defs);
+    compassSVG.appendChild(createDefs());
     if (size !== 'small') {
-        compassSVG.appendChild(markers);
-        compassSVG.appendChild(directionLabels);
+        compassSVG.appendChild(createMarkers());
+        compassSVG.appendChild(createDirectionLabels());
     }
-    compassSVG.appendChild(ring);
-    compassSVG.appendChild(pointer);
+    compassSVG.appendChild(createCompassRing());
+    compassSVG.appendChild(createPointer());
 
     return (
         compassSVG

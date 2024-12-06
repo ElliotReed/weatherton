@@ -1,9 +1,9 @@
-import createCompassSVG from "./compassSVG.ts";
-import { drawBarometer } from "./barometer.js";
+import createCompassSVG from "./compassSVG";
+import createBarometerSVG from "./barometerSVG";
 import { createSunriseSunsetCanvas } from "./sunriseSunset.js";
 import { createElement } from "./createElement.js";
-import * as utils from "./utils/utils.js";
-import raindropImg from '../images/raindrop.svg?url';
+import * as utils from "./utils/utils";
+import raindropImg from './images/raindrop.svg?url';
 // default: kelvin, metric: Celsius, imperial: Fahrenheit.
 let units;
 
@@ -230,15 +230,12 @@ export function createHumidityElement(humidity) {
 }
 
 export function createPressureElement(pressure) {
-  const barometer = drawBarometer(pressure);
+  const barometer = createBarometerSVG(pressure);
   const pressureElement = createElement(
     "div",
     { class: "flex-center-all pressure" },
     barometer
   );
-
-  const pressureElementObserver = new ResizeObserver(() => barometer.resize());
-  pressureElementObserver.observe(pressureElement);
 
   return pressureElement;
 }

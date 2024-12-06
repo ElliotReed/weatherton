@@ -3,7 +3,7 @@ not used kept as example
 */
 import './style.css';
 // import typescriptLogo from '/images/raindrop.svg';
-import { setupCounter } from '../../_archive/counter';
+import { setupCounter } from '../_archive/counter';
 const typescriptLogo = 5; // temp fix
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `

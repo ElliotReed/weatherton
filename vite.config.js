@@ -5,7 +5,8 @@ export default defineConfig({
   rollupOptions: {
     input: {
       main: 'index.html',
-      compassDesign: 'compass-design.html'
+      compassDesign: 'compass-design.html',
+      barometerDesign: 'barometer-design.html',
     }
   }
 })

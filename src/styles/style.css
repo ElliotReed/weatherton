@@ -550,7 +550,7 @@ section {
 }
 
 #current-weather__container .wind svg,
-#current-weather__container .pressure canvas {
+#current-weather__container .pressure svg {
   height: 5rem;
 }
 
