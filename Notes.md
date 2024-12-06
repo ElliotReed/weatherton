@@ -1,5 +1,11 @@
 # Notes
 
+## Status
+
+Refactoring, and general typescript conversion
+
+Last worked on 2024-12-6
+
 ## Ideas
 
 ### Scroll to show content
@@ -14,16 +20,22 @@ In app.js, set to the production url (uncomment).
 
 after build, dist folder is deployed to github pages as the gh-pages branch
 
-    npm run deploy
+```console
+npm run deploy
+```
 
 ## Updates
 
 force to latest with npm-check-updates
 
-    ncu -u
+```console
+ncu -u
+```
 
 ## Network
 
 expose network
 
-    npm run dev -- --host
+```console
+npm run dev -- --host
+```
