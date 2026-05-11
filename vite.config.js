@@ -1,12 +1,13 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/weatherton/',
-  rollupOptions: {
-    input: {
-      main: 'index.html',
-      compassDesign: 'compass-design.html',
-      barometerDesign: 'barometer-design.html',
+    build: {
+        rollupOptions: {
+            input: {
+                main: 'index.html',
+                compassDesign: 'compass-design.html',
+                barometerDesign: 'barometer-design.html',
+            }
+        }
     }
-  }
 })

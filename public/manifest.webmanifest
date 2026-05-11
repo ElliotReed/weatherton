@@ -1,7 +1,7 @@
 {
   "name": "Weatherton",
   "short_name": "Weatherton",
-  "start_url": "https://elliotreed.github.io/weatherton/",
+  "start_url": "https://weatherton.elliotreed.dev/",
   "display": "standalone",
   "icons": [
     {
