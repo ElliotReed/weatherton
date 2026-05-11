@@ -11,7 +11,7 @@ import './styles/normalize.css';
 import './styles/style.css';
 
 // production
-const FETCH_URL = 'https://api.elliotreed.net/weatherton';
+const FETCH_URL = 'https://api.elliotreed.dev/weatherton';
 
 // development
 // const FETCH_URL = 'http://localhost:3066/weatherton';

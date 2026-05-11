@@ -60,7 +60,7 @@ export function convertSpeed(
     speed: number,
     fromScale: SpeedScale = "m/s",
     toScale: SpeedScale = "mph") {
-    if ((fromScale = "m/s") && (toScale = "mph")) {
+    if ((fromScale === "m/s") && (toScale === "mph")) {
         const mphSpeed = Math.floor(speed * 2.237);
         return `${mphSpeed} mph`;
     }
@@ -75,7 +75,7 @@ export function convertDistance(
         value: String(distance),
         units: fromScale,
     };
-    if ((fromScale = "meters") && (toScale = "miles")) {
+    if ((fromScale === "meters") && (toScale === "miles")) {
         oDistance.value = (distance * 0.000621371).toFixed(2);
         oDistance.units = toScale;
     }
@@ -100,7 +100,7 @@ export function convertVolume(
         value: String(volume),
         units: "mm",
     };
-    if ((fromScale = "mm") && (toScale = "inches")) {
+    if ((fromScale === "mm") && (toScale === "inches")) {
         oVolume.value = (volume * 0.0393701).toFixed(2);
         oVolume.units = toScale;
     }

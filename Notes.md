@@ -1,5 +1,7 @@
 # Notes
 
+check cors on server to only allow deployed site
+
 ## Status
 
 Refactoring, and general typescript conversion
